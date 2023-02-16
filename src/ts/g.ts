@@ -39,7 +39,7 @@ function getStudentStatus(student: Student): string {
   */
 
 class Temp {
-  constructor(public q: string, public where: Date, public v: number) {}
+  constructor(public city: string, public toDayDate: Date, public v: number) {}
 }
 
 function averageWeeklyTemperature(heights: Temp[]) {
@@ -118,14 +118,11 @@ function presentStudents(students: Student[]) {
   Exemplet under löser problemet, men inte speciellt bra. Hur kan man göra istället?
   */
 function concatenateStrings() {
-  let result = "";
-  result += "Lorem";
-  result += "ipsum";
-  result += "dolor";
-  result += "sit";
-  result += "amet";
+  let result = ["Lorem", "ipsum", "dolor", "sit","amet"];
+   
+  return result.join("")
 
-  return result;
+
 }
 
 /* 
