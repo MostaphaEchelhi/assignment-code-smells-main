@@ -39,21 +39,23 @@ function getStudentStatus(student: Student): string {
   */
 
 class Temp {
-  constructor(public city: string, public toDayDate: Date, public v: number) {}
+  constructor(public city: string, public toDayDate: Date, public celsius: number) {}
 }
 
-function averageWeeklyTemperature(heights: Temp[]) {
-  let r = 0;
+function averageWeeklyTemperature(temperature: Temp[]) {
+  let averageWeeklyTemperature = 0;
+  const MILLISECONDS_IN_A_WEEK =  604800000;
+  const DAY_OF_A_WEEK = 7;
 
-  for (let who = 0; who < heights.length; who++) {
-    if (heights[who].q === "Stockholm") {
-      if (heights[who].where.getTime() > Date.now() - 604800000) {
-        r += heights[who].v;
+  for (let i = 0; i < temperature.length; i++) {
+    if (temperature[i].city === "Stockholm") {
+      if (temperature[i].toDayDate.getTime() > Date.now() - MILLISECONDS_IN_A_WEEK) {
+        averageWeeklyTemperature += temperature[i].celsius;
       }
     }
   }
 
-  return r / 7;
+  return averageWeeklyTemperature / DAY_OF_A_WEEK ;
 }
 
 /*
@@ -61,28 +63,57 @@ function averageWeeklyTemperature(heights: Temp[]) {
   Se om du kan göra det bättre. Inte bara presentationen räknas, även strukturer.
   */
 
-function showProduct(
-  name: string,
-  price: number,
-  amount: number,
-  description: string,
-  image: string,
-  parent: HTMLElement
-) {
-  let container = document.createElement("div");
-  let title = document.createElement("h4");
-  let pris = document.createElement("strong");
-  let imageTag = document.createElement("img");
+  interface showProduct{
+    name: string,
+    price: number,
+    amount: number,
+    description: string,
+    image: string,
+    parent: HTMLElement
+  }
+  
+  function createProduct (showProduct:showProduct, parent:HTMLDivElement) {
+    const container = document.createElement("div");
+    createName(showProduct, container);
+    createPrice(showProduct, container);
+    createImg(showProduct, container);
 
-  title.innerHTML = name;
-  pris.innerHTML = price.toString();
-  imageTag.src = image;
+    parent.appendChild(container);
+  }
+  
+  
+  function createName(showProduct:showProduct, container: HTMLDivElement) {
+    const titletag = document.createElement("h4");
+    titletag.innerHTML = showProduct.name;
+    container.appendChild(titletag);
+  
+    return titletag;
+  }
+  
+  function createPrice (showProduct:showProduct, container: HTMLDivElement) {
+    const priceOnProduct = document.createElement("strong");
+    priceOnProduct.innerHTML = showProduct.price.toString();
+    container.appendChild(priceOnProduct);
+  
+    return priceOnProduct;
+  }
+  
+  function createImg (showProduct:showProduct, container: HTMLDivElement) {
+    const productImg = document.createElement("img");
+    productImg.innerHTML = showProduct.image;
+    container.appendChild(productImg);
+  
+    return productImg;
+  }
+    
 
-  container.appendChild(title);
-  container.appendChild(imageTag);
-  container.appendChild(pris);
-  parent.appendChild(container);
-}
+  
+
+
+
+  
+  
+
 
 /*
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
@@ -131,23 +162,37 @@ function concatenateStrings() {
     fler och fler parametrar behöver läggas till? T.ex. avatar eller adress. Hitta en bättre
     lösning som är hållbar och skalar bättre. 
 */
-function createUser(
-  name: string,
-  birthday: Date,
-  email: string,
-  password: string
-) {
-  // Validation
+class createUser{
+  constructor(
+  public name: string,
+  public birthday: Date,
+  public email: string,
+  public password: string
+  ) {}
+}// Validation
 
+const MILLISECONDS_SINCE_YEAR = 1970;
+const AGE_REQUERD = 20;
+
+ 
+
+function getAge (birthday:Date){
   let ageDiff = Date.now() - birthday.getTime();
   let ageDate = new Date(ageDiff);
-  let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+  let userAge = Math.abs(ageDate.getUTCFullYear() - MILLISECONDS_SINCE_YEAR);
 
-  console.log(userAge);
+  return userAge;
+}
 
-  if (!(userAge < 20)) {
-    // Logik för att skapa en användare
+function createUserPerson (createUser:createUser) {
+  const userAge = getAge(createUser.birthday);
+
+  if (userAge > AGE_REQUERD) {
+    return "konto har skapats";
   } else {
     return "Du är under 20 år";
   }
-}
+
+}  
+
+
