@@ -5,12 +5,9 @@
   */
 
 function getLength(jumpings: number[]): number {
-
-  return jumpings.reduce(
-    (jumpDistanceSoFar, currentJump) => { 
-    return jumpDistanceSoFar + currentJump
-    });
-
+  return jumpings.reduce((jumpDistanceSoFar, currentJump) => {
+    return jumpDistanceSoFar + currentJump;
+  });
 }
 /*
   2. I detta exempel har vi fokuserat på if-statements. Se om du kan göra exemplet bättre!
@@ -25,7 +22,6 @@ class Student {
 }
 
 function getStudentStatus(student: Student): string {
-
   if (student.name == "Sebastina" && student.handedInOnTime && student.passed) {
     return "VG";
   } else {
@@ -39,23 +35,30 @@ function getStudentStatus(student: Student): string {
   */
 
 class Temp {
-  constructor(public city: string, public toDayDate: Date, public celsius: number) {}
+  constructor(
+    public city: string,
+    public toDayDate: Date,
+    public celsius: number
+  ) {}
 }
 
 function averageWeeklyTemperature(temperature: Temp[]) {
   let averageWeeklyTemperature = 0;
-  const MILLISECONDS_IN_A_WEEK =  604800000;
-  const DAY_OF_A_WEEK = 7;
+  const milliSecondsInWeek = 604800000;
+  const dayOfWeek = 7;
 
   for (let i = 0; i < temperature.length; i++) {
     if (temperature[i].city === "Stockholm") {
-      if (temperature[i].toDayDate.getTime() > Date.now() - MILLISECONDS_IN_A_WEEK) {
+      if (
+        temperature[i].toDayDate.getTime() >
+        Date.now() - milliSecondsInWeek
+      ) {
         averageWeeklyTemperature += temperature[i].celsius;
       }
     }
   }
 
-  return averageWeeklyTemperature / DAY_OF_A_WEEK ;
+  return averageWeeklyTemperature / dayOfWeek;
 }
 
 /*
@@ -63,57 +66,47 @@ function averageWeeklyTemperature(temperature: Temp[]) {
   Se om du kan göra det bättre. Inte bara presentationen räknas, även strukturer.
   */
 
-  interface showProduct{
-    name: string,
-    price: number,
-    amount: number,
-    description: string,
-    image: string,
-    parent: HTMLElement
-  }
-  
-  function createProduct (showProduct:showProduct, parent:HTMLDivElement) {
-    const container = document.createElement("div");
-    createName(showProduct, container);
-    createPrice(showProduct, container);
-    createImg(showProduct, container);
+interface showProduct {
+  name: string;
+  price: number;
+  amount: number;
+  description: string;
+  image: string;
+  parent: HTMLElement;
+}
 
-    parent.appendChild(container);
-  }
-  
-  
-  function createName(showProduct:showProduct, container: HTMLDivElement) {
-    const titletag = document.createElement("h4");
-    titletag.innerHTML = showProduct.name;
-    container.appendChild(titletag);
-  
-    return titletag;
-  }
-  
-  function createPrice (showProduct:showProduct, container: HTMLDivElement) {
-    const priceOnProduct = document.createElement("strong");
-    priceOnProduct.innerHTML = showProduct.price.toString();
-    container.appendChild(priceOnProduct);
-  
-    return priceOnProduct;
-  }
-  
-  function createImg (showProduct:showProduct, container: HTMLDivElement) {
-    const productImg = document.createElement("img");
-    productImg.innerHTML = showProduct.image;
-    container.appendChild(productImg);
-  
-    return productImg;
-  }
-    
+function createProduct(showProduct: showProduct, parent: HTMLDivElement) {
+  const container = document.createElement("div");
+  createName(showProduct, container);
+  createPrice(showProduct, container);
+  createImg(showProduct, container);
 
-  
+  parent.appendChild(container);
+}
 
+function createName(showProduct: showProduct, container: HTMLDivElement) {
+  const titletag = document.createElement("h4");
+  titletag.innerHTML = showProduct.name;
+  container.appendChild(titletag);
 
+  return titletag;
+}
 
-  
-  
+function createPrice(showProduct: showProduct, container: HTMLDivElement) {
+  const priceOnProduct = document.createElement("strong");
+  priceOnProduct.innerHTML = showProduct.price.toString();
+  container.appendChild(priceOnProduct);
 
+  return priceOnProduct;
+}
+
+function createImg(showProduct: showProduct, container: HTMLDivElement) {
+  const productImg = document.createElement("img");
+  productImg.innerHTML = showProduct.image;
+  container.appendChild(productImg);
+
+  return productImg;
+}
 
 /*
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
@@ -149,11 +142,9 @@ function presentStudents(students: Student[]) {
   Exemplet under löser problemet, men inte speciellt bra. Hur kan man göra istället?
   */
 function concatenateStrings() {
-  let result = ["Lorem", "ipsum", "dolor", "sit","amet"];
-   
-  return result.join("")
+  let result = ["Lorem", "ipsum", "dolor", "sit", "amet"];
 
-
+  return result.join("");
 }
 
 /* 
@@ -162,37 +153,31 @@ function concatenateStrings() {
     fler och fler parametrar behöver läggas till? T.ex. avatar eller adress. Hitta en bättre
     lösning som är hållbar och skalar bättre. 
 */
-class createUser{
+class createUser {
   constructor(
-  public name: string,
-  public birthday: Date,
-  public email: string,
-  public password: string
+    public name: string,
+    public birthday: Date,
+    public email: string,
+    public password: string
   ) {}
-}// Validation
+} // Validation
 
-const MILLISECONDS_SINCE_YEAR = 1970;
-const AGE_REQUERD = 20;
-
- 
-
-function getAge (birthday:Date){
+function getAge(birthday: Date) {
+  const milliSecondsSinceYear = 1970;
   let ageDiff = Date.now() - birthday.getTime();
   let ageDate = new Date(ageDiff);
-  let userAge = Math.abs(ageDate.getUTCFullYear() - MILLISECONDS_SINCE_YEAR);
+  let userAge = Math.abs(ageDate.getUTCFullYear() - milliSecondsSinceYear);
 
   return userAge;
 }
 
-function createUserPerson (createUser:createUser) {
+function createUserPerson(createUser: createUser) {
+  const ageRequerd = 20;
   const userAge = getAge(createUser.birthday);
 
-  if (userAge > AGE_REQUERD) {
+  if (userAge > ageRequerd) {
     return "konto har skapats";
   } else {
     return "Du är under 20 år";
   }
-
-}  
-
-
+}
