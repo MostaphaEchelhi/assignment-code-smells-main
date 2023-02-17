@@ -15,18 +15,20 @@ function getLength(jumpings: number[]): number {
 
 class Student {
   constructor(
-    public name: string,
-    public handedInOnTime: boolean,
-    public passed: boolean
+    public name: "sebastian",
+    public handedInOnTime: true,
+    public passed: true
   ) {}
 }
 
+
 function getStudentStatus(student: Student): string {
-  if (student.name == "Sebastina" && student.handedInOnTime && student.passed) {
+  if (student.name && student.handedInOnTime && student.passed) {
     return "VG";
   } else {
     return "IG";
   }
+
 }
 
 /*
@@ -80,7 +82,7 @@ function createProduct(showProduct: showProduct, parent: HTMLDivElement) {
   createName(showProduct, container);
   createPrice(showProduct, container);
   createImg(showProduct, container);
-
+  
   parent.appendChild(container);
 }
 
@@ -112,26 +114,22 @@ function createImg(showProduct: showProduct, container: HTMLDivElement) {
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
   går att göra betydligt bättre. Gör om så många som du kan hitta!
   */
+
+
 function presentStudents(students: Student[]) {
+  let studentPass = document.querySelector("ul#passedstudents");
+  let studetFail = document.querySelector("ul#failedstudents");
+  const container = document.createElement("div");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  container.appendChild(checkbox);
+  
+
   for (const student of students) {
     if (student.handedInOnTime) {
-      let container = document.createElement("div");
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = true;
-
-      container.appendChild(checkbox);
-      let listOfStudents = document.querySelector("ul#passedstudents");
-      listOfStudents?.appendChild(container);
+      studentPass?.appendChild(container);
     } else {
-      let container = document.createElement("div");
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = false;
-
-      container.appendChild(checkbox);
-      let listOfStudents = document.querySelector("ul#failedstudents");
-      listOfStudents?.appendChild(container);
+      studetFail?.appendChild(container);
     }
   }
 }
