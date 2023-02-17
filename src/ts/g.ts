@@ -21,14 +21,12 @@ class Student {
   ) {}
 }
 
-
 function getStudentStatus(student: Student): string {
   if (student.name && student.handedInOnTime && student.passed) {
     return "VG";
   } else {
     return "IG";
   }
-
 }
 
 /*
@@ -82,7 +80,7 @@ function createProduct(showProduct: showProduct, parent: HTMLDivElement) {
   createName(showProduct, container);
   createPrice(showProduct, container);
   createImg(showProduct, container);
-  
+
   parent.appendChild(container);
 }
 
@@ -115,15 +113,13 @@ function createImg(showProduct: showProduct, container: HTMLDivElement) {
   går att göra betydligt bättre. Gör om så många som du kan hitta!
   */
 
-
 function presentStudents(students: Student[]) {
-  let studentPass = document.querySelector("ul#passedstudents");
-  let studetFail = document.querySelector("ul#failedstudents");
+  const studentPass = document.querySelector("ul#passedstudents");
+  const studetFail = document.querySelector("ul#failedstudents");
   const container = document.createElement("div");
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   container.appendChild(checkbox);
-  
 
   for (const student of students) {
     if (student.handedInOnTime) {
